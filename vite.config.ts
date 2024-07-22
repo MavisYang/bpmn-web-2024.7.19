@@ -46,15 +46,15 @@ export default defineConfig(() => {
     server: {
       host: '0.0.0.0',
       proxy: {
-        "/api": {
-          target:"http://localhost:8080",
+        '/api': {
+          target: 'http://localhost:8080',
           rewrite: path => {
             // onsole.log(path); // 打印[/api/userInfo] 这就是http-proxy要请求的url,我们基地址实际是没有/api 所以replace掉
             // return path.replace(/^\/api/, '');
             return path;
-          }  
-        } 
-      }
+          },
+        },
+      },
     },
     resolve: {
       alias: {

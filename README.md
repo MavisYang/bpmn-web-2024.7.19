@@ -86,5 +86,6 @@ bpmn-js 改造（一）添加会签节点 https://blog.csdn.net/weiyongliang_813
 - https://www.jianshu.com/search?q=%E5%85%A8%E7%BD%91%E6%9C%80%E8%AF%A6bpmn.js%E6%95%99%E6%9D%90-properties-panel%E7%AF%87&page=1&type=note
 - https://www.jianshu.com/p/03bde934a523
 - https://zhuanlan.zhihu.com/p/428391444
+- https://juejin.cn/post/6844904025171689479
 
 - https://blog.csdn.net/sxmzhw/article/details/133297776?ops_request_misc=&request_id=&biz_id=102&utm_term=bpmn.js%20vue3&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-0-133297776.142^v100^pc_search_result_base5&spm=1018.2226.3001.4187
