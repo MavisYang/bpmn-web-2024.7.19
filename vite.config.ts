@@ -1,3 +1,10 @@
+/*
+ * @Author: yangmiaomiao
+ * @Date: 2024-07-19 13:26:56
+ * @LastEditors: yangmiaomiao
+ * @LastEditTime: 2024-07-22 14:57:03
+ * @Description:
+ */
 import { fileURLToPath, URL } from 'url';
 
 import { defineConfig } from 'vite';
@@ -75,6 +82,10 @@ export default defineConfig(() => {
     },
     optimizeDeps: {
       include: ['@ant-design/icons-vue', 'ant-design-vue'],
+    },
+    define: {
+      // enable hydration mismatch details in production build
+      __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true',
     },
   };
 });

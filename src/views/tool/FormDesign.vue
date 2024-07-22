@@ -1,9 +1,6 @@
 <template>
-   <AntdDesignForm ref="designForm" />
+  <AntdDesignForm ref="designForm" />
 </template>
 
-<script lang="ts" setup> 
-
-</script>
-<style scoped>
-</style>
+<script lang="ts" setup></script>
+<style scoped></style>

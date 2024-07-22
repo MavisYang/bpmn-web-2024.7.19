@@ -14,7 +14,8 @@
     <template #extra>
       <a-button key="3">操作</a-button>
       <a-button key="2">操作</a-button>
-      <a-button key="1" type="primary" @click="handleCreateModel()">新增模型</a-button>
+      <a-button key="1" type="primary" @click="handleCreateModel('add')">新增模型流程</a-button>
+      <a-button key="4" type="primary" @click="handleCreateModel('edit')">编辑模型流程</a-button>
     </template>
     <template #extraContent>
       <a-space>
@@ -33,10 +34,10 @@
       <div v-if="!loading">
         <a-row :gutter="16">
           <a-col :span="6">
-            <a-card :bordered="false"> 
+            <a-card :bordered="false">
               <template #actions>
                 <edit-outlined key="edit" />
-                 
+
                 <a-dropdown>
                   <a class="ant-dropdown-link" @click.prevent>
                     <ellipsis-outlined />
@@ -44,34 +45,59 @@
                   <template #overlay>
                     <a-menu>
                       <a-menu-item>
-                        <a href="javascript:;"><download-outlined /> 下载 BPMN 模型</a>
+                        <a href="javascript:;">
+                          <download-outlined />
+                          下载 BPMN 模型
+                        </a>
                       </a-menu-item>
-                       <a-menu-item>
-                        <a href="javascript:;"><delete-outlined /> 删除</a>
+                      <a-menu-item>
+                        <a href="javascript:;">
+                          <delete-outlined />
+                          删除
+                        </a>
                       </a-menu-item>
                     </a-menu>
                   </template>
                 </a-dropdown>
               </template>
-              <a-card-meta >
-                <template #title> 
-                  <h3 style="float:left">请求流程<small>v2</small></h3>
-                  <div style="float:right">
+              <a-card-meta>
+                <template #title>
+                  <h3 style="float: left">
+                    请求流程
+                    <small>v2</small>
+                  </h3>
+                  <div style="float: right">
                     <a-switch />
                   </div>
                 </template>
                 <template #description>
-                  <p>
-                    员工请假流程
-                  </p> 
+                  <p>员工请假流程</p>
                   <ul>
-                    <li><label>创建人:</label> zhangsan</li>
-                    <li><label>创建时间:</label> zhangsan</li>
-                    <li><label>最后修改人:</label> zhangsan</li>
-                    <li><label>最后修改时间:</label> zhangsan</li>
-                    <li><label>业务类型:</label> 通用</li>
-                    <li><label>版本号:</label> 1</li>
-                  </ul> 
+                    <li>
+                      <label>创建人:</label>
+                      zhangsan
+                    </li>
+                    <li>
+                      <label>创建时间:</label>
+                      zhangsan
+                    </li>
+                    <li>
+                      <label>最后修改人:</label>
+                      zhangsan
+                    </li>
+                    <li>
+                      <label>最后修改时间:</label>
+                      zhangsan
+                    </li>
+                    <li>
+                      <label>业务类型:</label>
+                      通用
+                    </li>
+                    <li>
+                      <label>版本号:</label>
+                      1
+                    </li>
+                  </ul>
                 </template>
               </a-card-meta>
             </a-card>
@@ -93,49 +119,56 @@
   </page-container>
 </template>
 <script lang="ts" setup>
-import type { Page } from "@/utils/request";
-import type { WorkflowModel, WorkflowPageQuery } from "@/api/workflowDesignApi";
-import { findPageList } from "@/api/workflowDesignApi";
-import { SettingOutlined, EditOutlined, EllipsisOutlined, DeleteOutlined, DownloadOutlined } from '@ant-design/icons-vue';
-import { useRouter } from "vue-router";
+import type { Page } from '@/utils/request';
+import type { WorkflowModel, WorkflowPageQuery } from '@/api/workflowDesignApi';
+import { findPageList } from '@/api/workflowDesignApi';
+import {
+  SettingOutlined,
+  LikeOutlined,
+  EditOutlined,
+  EllipsisOutlined,
+  DeleteOutlined,
+  DownloadOutlined,
+} from '@ant-design/icons-vue';
+
+import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const loading = ref<boolean>(true);
 const query = reactive<WorkflowPageQuery>({
   page: 1,
   size: 20,
-  keyword: ""
+  keyword: '',
 });
 
-const data = reactive<Page<WorkflowModel>>({})
+const data = reactive<Page<WorkflowModel>>({});
 
 const queryShake = (falg: object) => {
+  loading.value = false;
   return setTimeout(() => {
-    findPageList(query).then((ret) => {
-      loading.value = false;
-      data.content = ret.content;
-      data.meta = ret.meta;
-    }).catch(ret => {
-      loading.value = false;
-    });
+    loading.value = false;
+    // findPageList(query)
+    //   .then(ret => {
+    //     loading.value = false;
+    //     data.content = ret.content;
+    //     data.meta = ret.meta;
+    //   })
+    //   .catch(ret => {
+    //     loading.value = false;
+    //   });
   }, 500);
-}
+};
 
-watchEffect((onInvalidate) => {
+watchEffect(onInvalidate => {
   let shakeTimer = queryShake(query);
   onInvalidate(() => clearInterval(shakeTimer));
 });
 
-onMounted(() => {
+onMounted(() => {});
 
-})
+const onShowSizeChange = () => {};
 
-const onShowSizeChange = () => {
-
-}
-
-const handleCreateModel = () => {
-  router.push({ name:"workflowDesign" });
-}
-
+const handleCreateModel = (type: string) => {
+  router.push({ name: 'workflowDesign', query: { type } });
+};
 </script>

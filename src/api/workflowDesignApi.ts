@@ -2,11 +2,12 @@
  * @Author: yangmiaomiao
  * @Date: 2024-07-19 13:26:56
  * @LastEditors: yangmiaomiao
- * @LastEditTime: 2024-07-19 14:01:56
+ * @LastEditTime: 2024-07-22 15:42:27
  * @Description:
  */
 import type { List, Page, PageQuery } from '@/utils/request';
 import { request, download } from '@/utils/request';
+import XML from '@/views/WorkflowDesign/xml.json';
 
 export interface WorkflowModel {
   id: string;
@@ -22,8 +23,15 @@ export interface WorkflowPageQuery extends PageQuery {
   keyword: string;
 }
 
+export function getXmlData() {
+  // return request<Page<WorkflowModel>>(`/api/workflow-models/{keycode}/xml-create`, model, 'POST');
+  return Promise.resolve({
+    code: 200,
+    data: XML,
+  });
+}
+
 export function save(model: WorkflowModel) {
-  alert(JSON.stringify(model));
   return request<Page<WorkflowModel>>(`/api/workflow-models/{keycode}/xml-create`, model, 'POST');
 }
 

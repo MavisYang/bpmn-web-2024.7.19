@@ -1,21 +1,4 @@
 <template>
-  <!-- <div class="design-container">
-    <a-card>
-      <a-button @click="handleSave(0)">保存</a-button>
-      <a-button @click="handleSave(1)">保存并启用</a-button>
-      <a-button @click="handleRedo()">前进</a-button>
-      <a-button @click="handleUndo()">后退</a-button>
-      <a-button @click="handleZoom(1)">放大</a-button>
-      <a-button @click="handleZoom(-1)">缩小</a-button>
-      <a-button @click="handleDownload()">下载</a-button>
-    </a-card>
-
-    <div class="wf-container">
-      <div id="wf-designer" ref="container" class="containerBox"></div>
-      <div id="js-properties-panel" class="panel"></div>
-    </div>
-  </div> -->
-
   <div class="designer-container">
     <a-card>
       <a-button @click="handleSave(0)">保存</a-button>
@@ -25,17 +8,14 @@
       <a-button @click="handleZoom(-1)">缩小</a-button>
       <a-button @click="handleDownload()">下载</a-button>
     </a-card>
-    <!-- <div class="button-box">
-        <el-button type="primary" @click="save">保存</el-button>
-        <el-button type="warning" @click="handleDownload">下载</el-button>
-      </div> -->
+
     <div ref="container" class="containerBox" />
     <div id="js-properties-panel" class="panel" />
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref, reactive } from 'vue';
+import { onMounted, ref } from 'vue';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import 'bpmn-js/dist/assets/diagram-js.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';

@@ -76,11 +76,14 @@ bpmn-js 改造（一）添加会签节点 https://blog.csdn.net/weiyongliang_813
 - https://blog.csdn.net/Ka__ze/article/details/128716495
 - https://gitee.com/xlys998/bpmn-vue3
 - 解决 bpmn-js-properties-panel 缺少文件问题：https://blog.csdn.net/lbd_123/article/details/127084252
+- https://blog.csdn.net/weixin_44213308/article/details/115187669
 
 参考：
 
 - Bpmn.js 中文文档（一） https://juejin.cn/post/6900793894263488519
+-
 - https://designer.bpmport.com/designer/
+- https://blog.ops-coffee.cn/s/ZYFo4hqxPKlu6QTb-vg4ig#google_vignette
 - https://www.jianshu.com/p/0434d9603bb8
 - https://www.jianshu.com/p/1d6e4ae5d2c1
 - https://www.jianshu.com/search?q=%E5%85%A8%E7%BD%91%E6%9C%80%E8%AF%A6bpmn.js%E6%95%99%E6%9D%90-properties-panel%E7%AF%87&page=1&type=note
