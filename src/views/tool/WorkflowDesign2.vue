@@ -1,6 +1,7 @@
 <template>
   <div class="" style="height: 100%">
     <a-card>
+      <a-button @click="handleBack()">返回</a-button>
       <a-button @click="handleSave(0)">保存</a-button>
       <a-button @click="handleSave(1)">保存并启用</a-button>
       <a-button @click="handleRedo()">前进</a-button>
@@ -15,7 +16,10 @@
     </div>
 
     <a-card>
-      <a-form :model="modelState">
+      <a-form
+        :model="modelState"
+        :label-col="{ style: { width: '120px', maxWidth: '120px', overflow: 'hidden', textOverflow: 'elipsis' } }"
+      >
         <a-row :gutter="24">
           <a-col :span="8">
             <a-form-item name="key" label="流程标识符" :rules="[{ required: true, message: '请输入流程标识符' }]">
@@ -45,12 +49,29 @@
             </a-form-item>
           </a-col>
           <a-col :span="8">
+            <a-form-item name="nameEn" label="申请人是否可以终止">
+              <a-checkbox v-model:checked="modelState.definition.allowApplicantStop"></a-checkbox>
+            </a-form-item>
+          </a-col>
+        </a-row>
+        <a-row :gutter="24">
+          <a-col :span="8">
+            <a-form-item label="表单审计">
+              <a-checkbox v-model:checked="modelState.definition.allowApplicantStop"></a-checkbox>
+            </a-form-item>
+          </a-col>
+          <a-col :span="8">
+            <a-form-item name="name" label="流程ID生成前缀" :rules="[{ required: true, message: 'input name cn' }]">
+              <a-input v-model:value="modelState.name" placeholder="placeholder"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :span="8">
             <a-form-item
               name="nameEn"
               label="申请人是否可以终止"
               :rules="[{ required: true, message: 'input name en' }]"
             >
-              <a-input v-model:value="modelState.nameEn" placeholder="placeholder"></a-input>
+              <a-checkbox v-model:checked="modelState.definition.allowApplicantStop"></a-checkbox>
             </a-form-item>
           </a-col>
         </a-row>
@@ -66,7 +87,9 @@ import { CustomModeler } from '@/components/bpmn';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda.json';
 import type { WorkflowModel } from '@/api/workflowDesignApi';
 import { save } from '@/api/workflowDesignApi';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 /*
 npm install bpmn-js -D
 npm install bpmn-js-properties-panel -D
@@ -81,8 +104,7 @@ const modelState = reactive({
   name: '请假',
   nameEn: '',
   definition: {
-    // 允许申请人终止
-    allowApplicantStop: true,
+    allowApplicantStop: false,
     // 流程实例生成前缀，为空时默认使用 流程key + 'yyyyMMdd' + '4位流水号';
     instanceIdPrefix: '',
     forms: [],
@@ -195,7 +217,41 @@ onMounted(() => {
   );
 
   bpmnModeler.createDiagram(() => {
+    // 填充视图
     bpmnModeler.get('canvas').zoom('fit-viewport');
+
+    // 找到 palette 展示标题
+    const djsPalette = document.querySelector('.djs-palette-entries');
+    const djsPalStyle = {
+      width: '130px',
+      padding: '5px',
+      background: 'white',
+      left: '20px',
+      borderRadius: 0,
+    };
+
+    if (djsPalette == null) {
+      return;
+    }
+    for (var key in djsPalStyle) {
+      djsPalette.style[key] = djsPalStyle[key];
+    }
+
+    const controlStyle = {
+      display: 'flex',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      width: '100%',
+      padding: '5px',
+    };
+    djsPalette.querySelectorAll('.entry').forEach(entryElement => {
+      entryElement.innerHTML = `<div class='entry-title' style='font-size: 14px;font-weight:500;margin-left:15px;'>${entryElement.getAttribute(
+        'title',
+      )}</div>`;
+      for (var csKey in controlStyle) {
+        entryElement.style[csKey] = controlStyle[csKey];
+      }
+    });
   });
 
   // 监听节点选择变化
@@ -216,16 +272,22 @@ onMounted(() => {
   });
 });
 
-const handleSave = (isDeploy: Number) => {
+const handleBack = () => {
+  router.push({ name: 'workflowList' });
+};
+
+const handleSave = (isDeploy: number) => {
   const model: WorkflowModel = {
     id: '',
-    code: '',
+    keycode: '',
     name: '',
+    nameEn: '',
     group: 'general',
     model: '',
     status: isDeploy ? '1' : '0',
   };
   bpmnModeler.saveXML({ format: true }).then(data => {
+    // console.log('save model data is ',data);
     model.model = data.xml;
     save(model);
   });
@@ -253,7 +315,7 @@ const handleUndo = () => {
 
 <style>
 .wf-container {
-  height: 70%;
+  height: 67%;
 
   background: #fff;
   position: relative;
@@ -261,5 +323,9 @@ const handleUndo = () => {
 
 .wf-container #wf-designer {
   height: 100%;
+}
+
+.djs-palette {
+  width: 132px;
 }
 </style>

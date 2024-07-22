@@ -1,4 +1,11 @@
-import { assign } from "min-dash";
+/*
+ * @Author: yangmiaomiao
+ * @Date: 2024-07-19 13:26:56
+ * @LastEditors: yangmiaomiao
+ * @LastEditTime: 2024-07-19 13:36:11
+ * @Description: 
+ */
+import { assign } from 'min-dash';
 
 export default function PaletteProvider(
   palette,
@@ -8,7 +15,7 @@ export default function PaletteProvider(
   lassoTool,
   spaceTool,
   globalConnect,
-  translate
+  translate,
 ) {
   this.create = create;
   this.elementFactory = elementFactory;
@@ -22,26 +29,18 @@ export default function PaletteProvider(
 }
 
 PaletteProvider.$inject = [
-  "palette",
-  "create",
-  "elementFactory",
-  "handTool",
-  "lassoTool",
-  "spaceTool",
-  "globalConnect",
-  "translate"
+  'palette',
+  'create',
+  'elementFactory',
+  'handTool',
+  'lassoTool',
+  'spaceTool',
+  'globalConnect',
+  'translate',
 ];
 
 PaletteProvider.prototype.getPaletteEntries = function (element) {
-  const {
-    create,
-    elementFactory,
-    handTool,
-    lassoTool,
-    spaceTool,
-    globalConnect,
-    translate
-  } = this;
+  const { create, elementFactory, handTool, lassoTool, spaceTool, globalConnect, translate } = this;
 
   function createAction(type, group, className, title, options) {
     function createListener(event) {
@@ -54,21 +53,21 @@ PaletteProvider.prototype.getPaletteEntries = function (element) {
       create.start(event, shape);
     }
 
-    var shortType = type.replace(/^bpmn:/, "");
+    var shortType = type.replace(/^bpmn:/, '');
 
     return {
       group: group,
       className: className,
-      title: title || translate("Create {type}", { type: shortType }),
+      title: title || translate('Create {type}', { type: shortType }),
       action: {
         dragstart: createListener,
-        click: createListener
-      }
+        click: createListener,
+      },
     };
   }
 
   return {
-    "lasso-tool": {
+    'lasso-tool': {
       /*
        * https://zhuanlan.zhihu.com/p/428391444
        * group： 定义这个shape属于哪个组，主要有tools、event、gateway和activity可以选择
@@ -76,50 +75,25 @@ PaletteProvider.prototype.getPaletteEntries = function (element) {
        * title： 定义这个shape的title，也就是鼠标移动到shape上的提示
        * action： 用户操作时触发的事件
        */
-      group: "tools",
-      className: "bpmn-icon-lasso-tool",
-      title: "选中",
+      group: 'tools',
+      className: 'bpmn-icon-lasso-tool',
+      title: '选中',
       action: {
         click: function (event) {
           lassoTool.activateSelection(event);
-        }
-      }
+        },
+      },
     },
 
-    "tool-separator": {
-      group: "tools",
-      separator: true
+    'tool-separator': {
+      group: 'tools',
+      separator: true,
     },
 
-    "create.start-event": createAction(
-      "bpmn:StartEvent",
-      "event",
-      "bpmn-icon-start-event-none",
-      "开始"
-    ),
-    "create.end-event": createAction(
-      "bpmn:EndEvent",
-      "event",
-      "bpmn-icon-end-event-none",
-      "结束"
-    ),
-    "create.user-task": createAction(
-      "bpmn:UserTask",
-      "activity",
-      "bpmn-icon-user-task",
-      "用户任务"
-    ),
-    "create.service-task": createAction(
-      "bpmn:ServiceTask",
-      "activity",
-      "bpmn-icon-service-task",
-      "远程服务"
-    ),
-    "create.exclusive-gateway": createAction(
-      "bpmn:ExclusiveGateway",
-      "gateway",
-      "bpmn-icon-gateway-xor",
-      "排他网关"
-    )
+    'create.start-event': createAction('bpmn:StartEvent', 'event', 'bpmn-icon-start-event-none', '开始'),
+    'create.end-event': createAction('bpmn:EndEvent', 'event', 'bpmn-icon-end-event-none', '结束'),
+    'create.user-task': createAction('bpmn:UserTask', 'activity', 'bpmn-icon-user-task', '用户任务'),
+    'create.service-task': createAction('bpmn:ServiceTask', 'activity', 'bpmn-icon-service-task', '远程服务'),
+    'create.exclusive-gateway': createAction('bpmn:ExclusiveGateway', 'gateway', 'bpmn-icon-gateway-xor', '排他网关'),
   };
 };
