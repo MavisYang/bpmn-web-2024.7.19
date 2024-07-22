@@ -34,7 +34,7 @@ import propertiesPanelModule from 'bpmn-js-properties-panel';
 import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda.json';
 // BPMN国际化
-import customTranslate from '@/components/bpmn/custom/CustomTranslate';
+import customTranslate from '@/components/bpmn/custom/CustomTranslate.js';
 import type { WorkflowModel } from '@/api/workflowDesignApi';
 import { save } from '@/api/workflowDesignApi';
 
