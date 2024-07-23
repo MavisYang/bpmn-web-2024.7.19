@@ -2,7 +2,7 @@
  * @Author: yangmiaomiao
  * @Date: 2024-07-19 13:26:56
  * @LastEditors: yangmiaomiao
- * @LastEditTime: 2024-07-22 14:57:03
+ * @LastEditTime: 2024-07-22 16:15:02
  * @Description:
  */
 import { fileURLToPath, URL } from 'url';
@@ -52,6 +52,11 @@ export default defineConfig(() => {
     ],
     server: {
       host: '0.0.0.0',
+      hmr: true,
+      watch: {
+        usePolling: true, // 修复HMR热更新失效
+      },
+      open: true, //是否自动在浏览器打开
       proxy: {
         '/api': {
           target: 'http://localhost:8080',

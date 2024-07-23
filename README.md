@@ -4,6 +4,18 @@
 
 基于 vue 3 + ts + pro-layout + antdv + antv + bpmn js 的低代码平台 前端
 
+#### 安装
+
+```js
+yarn;
+```
+
+#### 启动
+
+```js
+yarn dev
+```
+
 #### 软件架构
 
 软件架构说明

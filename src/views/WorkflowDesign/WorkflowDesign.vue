@@ -2,7 +2,7 @@
  * @Author: yangmiaomiao
  * @Date: 2024-07-22 14:37:44
  * @LastEditors: yangmiaomiao
- * @LastEditTime: 2024-07-22 16:01:45
+ * @LastEditTime: 2024-07-23 13:30:10
  * @Description: 
   yarn add bpmn-js@7.3.1 
   yarn add bpmn-js-properties-panel@0.37.2
@@ -118,7 +118,7 @@ const initModeler = () => {
 // 创建空白流程图 == 渲染
 const createNewDiagram = async () => {
   if (type.value == 'edit') {
-    console.log('1');
+    // console.log('1');
     //根据请求数据渲染流程图
     await getXmlData().then(res => {
       modelBpmn.value = res.data || {};
@@ -133,7 +133,7 @@ const createNewDiagram = async () => {
       }
     });
   } else {
-    console.log('2');
+    // console.log('2');
     //创建空白流程图
     await bpmnModeler.createDiagram();
   }
@@ -152,7 +152,8 @@ const handleSave = (isDeploy: number) => {
   bpmnModeler.saveXML({ format: true }).then(data => {
     model.model = JSON.stringify(data.xml);
     console.log(JSON.stringify(model));
-    save(model);
+    alert(JSON.stringify(model));
+    // save(model);
   });
 };
 // 监听节点变化

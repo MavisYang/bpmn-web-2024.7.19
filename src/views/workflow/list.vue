@@ -14,8 +14,8 @@
     <template #extra>
       <a-button key="3">操作</a-button>
       <a-button key="2">操作</a-button>
-      <a-button key="1" type="primary" @click="handleCreateModel('add')">新增模型流程</a-button>
-      <a-button key="4" type="primary" @click="handleCreateModel('edit')">编辑模型流程</a-button>
+      <a-button key="1" type="primary" @click="handleCreateModel('add')">新增流程</a-button>
+      <a-button key="4" type="primary" @click="handleCreateModel('edit')">编辑流程</a-button>
     </template>
     <template #extraContent>
       <a-space>
